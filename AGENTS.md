@@ -3,6 +3,10 @@
 - Read `CLAUDE.md` before changing this project.
 - Create or switch branches only when the user asks or the harness requires it.
 
+## Verification
+
+- Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
+
 ## Release And Packaging
 
 - Keep `pnpm run release:verify` host-only, deterministic, and free of tracked-file mutations.
