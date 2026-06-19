@@ -7,6 +7,13 @@
 
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
 
+## Computer Use For Dev App
+
+- Use `$evb-viewer-computer-use` before operating the Electron development app with `@Computer` or Computer Use.
+- Run `node .agents/skills/evb-viewer-computer-use/scripts/resolve-target.mjs --session=default` and use its exact app path and CDP endpoint for the active dev session.
+- Use Computer Use `get_app_state` with the exact app path for visual state; use CDP or Playwright for clicks, typing, keyboard input, and stress-test loops when Computer Use action dispatch reports `-10005 noWindowsAvailable` or `cgWindowNotFound`.
+- Target the session-specific dev app and ask before starting, stopping, or terminating dev servers or stale Electron processes.
+
 ## Release And Packaging
 
 - Keep `pnpm run release:verify` host-only, deterministic, and free of tracked-file mutations.
