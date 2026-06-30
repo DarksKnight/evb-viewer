@@ -41,7 +41,7 @@ const gates = [
 ];
 
 function usage() {
-    return `Usage: node .agents/skills/evb-viewer-run-all-gates/scripts/run-all-gates.mjs [options]
+    return `Usage: node .agents/skills/run-all-gates/scripts/run-all-gates.mjs [options]
 
 Runs the EVB Viewer gate sequence and logs each gate under .devkit/gates/<timestamp>/.
 

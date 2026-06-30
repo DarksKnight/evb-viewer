@@ -1,5 +1,5 @@
 ---
-name: evb-viewer-run-all-gates
+name: run-all-gates
 description: Use in the evb-viewer repo when the user asks to run every quality, validation, CI, commit, or release gate; drive all failures to green autonomously, including failures that appear preexisting; then commit and push when requested. Covers `pnpm run validate`, coverage, `pnpm run release:verify`, commit-gate staging, and release-safe fix loops.
 ---
 
@@ -22,7 +22,7 @@ Drive the EVB Viewer repository to a green state, not just to a failure report. 
 Use the bundled runner from the repo root:
 
 ```bash
-node .agents/skills/evb-viewer-run-all-gates/scripts/run-all-gates.mjs
+node .agents/skills/run-all-gates/scripts/run-all-gates.mjs
 ```
 
 The default sequence is:
