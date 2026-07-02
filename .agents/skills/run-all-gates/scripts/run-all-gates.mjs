@@ -38,6 +38,14 @@ const gates = [
         description: 'Full local release verification checks and package verification',
         id: 'release-verify',
     },
+    {
+        args: [
+            '.agents/skills/run-all-gates/scripts/release-cut-preflight.mjs',
+        ],
+        command: 'node',
+        description: 'Release-cut preflight: clean worktree, upstream, GitHub auth, Node baseline, next patch tag availability',
+        id: 'release-cut-preflight',
+    },
 ];
 
 function usage() {

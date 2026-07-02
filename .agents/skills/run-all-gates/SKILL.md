@@ -30,6 +30,7 @@ The default sequence is:
 1. `pnpm run validate`
 2. `pnpm run test:coverage`
 3. `pnpm run release:verify`
+4. `node .agents/skills/run-all-gates/scripts/release-cut-preflight.mjs`
 
 The runner logs each gate to `.devkit/gates/<timestamp>/`, stops at the first failure, and prints the failing log path. Use `--list`, `--only <gate>`, `--from <gate>`, or `--skip <gate>` for targeted reruns while iterating.
 
@@ -49,6 +50,11 @@ Run `pnpm run gate:commit` after staging the intended commit, because it depends
 
 - Treat `pnpm run release:verify` as the authoritative local release gate. It runs local release checks and package verification.
 - Keep `release:verify` deterministic and free of tracked-file mutations. If it reports a worktree mutation, fix the command or generated output policy causing the mutation.
+- Treat `release-cut-preflight` as part of the default gate sequence. A gate run is not release-ready unless this final preflight passes.
+- `release-cut-preflight` intentionally fails on dirty worktrees, missing upstream tracking, failed GitHub auth, Node version mismatch, or an already-present next patch tag, because each of those will stop `release:patch`.
+- When the user explicitly asks to cut a patch, minor, or major release, run the corresponding release command such as `pnpm run release:patch` only after gate-fix changes are committed and the worktree is clean. The release script intentionally refuses dirty worktrees and creates its own version-only release commit.
+- In that explicit release-cut flow, treat the user request as permission to commit and push the in-scope gate-fix commit before running the release command, then let the release command create, push, dispatch, and wait for the version commit.
+- If `release:patch` fails with `Release requires a clean worktree`, inspect `git status --short --branch`, commit the in-scope gate-fix changes after `pnpm run gate:commit`, and rerun the release command rather than retrying against the dirty worktree.
 - Native, Electron runtime, OCR/DjVu, worker, packaging, and cross-arch changes must also satisfy the cross-arch verification rules from repo `AGENTS.md`.
 - Packaging can be slow. Prefer continuing with concrete log-backed fixes over asking the user whether to proceed.
 
