@@ -39,9 +39,7 @@ const gates = [
         id: 'release-verify',
     },
     {
-        args: [
-            '.agents/skills/run-all-gates/scripts/release-cut-preflight.mjs',
-        ],
+        args: ['.agents/skills/run-all-gates/scripts/release-cut-preflight.mjs'],
         command: 'node',
         description: 'Release-cut preflight: clean worktree, upstream, GitHub auth, Node baseline, next patch tag availability',
         id: 'release-cut-preflight',
