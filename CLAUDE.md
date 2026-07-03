@@ -31,6 +31,7 @@
 
 - Read the FreeText note-persistence documentation before changing annotation serialization or note-window code.
 - Electron e2e runs in nightly/manual diagnostics until the smoke lane is stable enough to promote; keep release gates focused on deterministic checks.
+- Run the Electron e2e smoke lane from a checkout without a live dev session; a running `default` session in the same directory makes timing-sensitive viewerSmoke tests (PNG open, DjVu wheel scroll) fail spuriously — use a separate git worktree or stop the session first.
 - For visual PDF navigation blink/skeleton debugging, see `scripts/diagnostics/README.md`.
 
 ## Git
