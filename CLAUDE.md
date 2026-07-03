@@ -24,6 +24,8 @@
 - `pnpm run check:naming` is part of `pnpm lint`.
 - Run `pnpm validate` after major changes.
 - Use `pnpm run fallow:all` for failing dead-code and duplicate checks; use `pnpm run fallow:health:summary` only when you need the informational maintainability report.
+- Run `pnpm run check:dev-env` when working from a new host or before Electron/browser/native-tool tasks; it reports whether the environment is headed or headless and whether VPS dependencies are present.
+- On headless Linux, use `pnpm run electron:run:headless -- <command>`, `pnpm run dev:headless`, or `pnpm run test:e2e:electron:headless` instead of assuming a desktop display.
 
 ## PDF Notes
 

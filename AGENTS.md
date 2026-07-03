@@ -7,6 +7,13 @@
 
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
 
+## Host Environment
+
+- Run `pnpm run check:dev-env` before Electron, browser automation, native-tool, OCR, packaging, or diagnostics work when the host/session is unfamiliar.
+- Treat its `headed` vs `headless` result as authoritative for this checkout. On Linux with empty `DISPLAY` and `WAYLAND_DISPLAY`, assume headless and run Electron/browser commands through Xvfb.
+- Prefer checked-in wrappers on headless Linux: `pnpm run electron:run:headless -- <command>`, `pnpm run dev:headless`, and `pnpm run test:e2e:electron:headless`.
+- For a fresh Ubuntu VPS, use `bash scripts/setup-linux-dev-host.sh`; keep any setup improvements in the repo, not only in machine-local notes.
+
 ## Computer Use For Dev App
 
 - Use `$evb-viewer-computer-use` before operating the Electron development app with `@Computer` or Computer Use.
