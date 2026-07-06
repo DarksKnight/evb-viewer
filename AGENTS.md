@@ -6,6 +6,7 @@
 ## Verification
 
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
+- For dev-server evidence, inspect `.devkit/scratch/dev-server-logs/latest-run.json`; `pnpm dev` tees launcher, Nuxt, and Electron output there.
 
 ## Host Environment
 
