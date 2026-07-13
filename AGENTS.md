@@ -7,6 +7,18 @@
 
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
 - For dev-server evidence, inspect `.devkit/scratch/dev-server-logs/latest-run.json`; `pnpm dev` tees launcher, Nuxt, and Electron output there.
+- For OCR, PDF serialization, or document mutations, verify semantic output and rendered visuals separately.
+- For viewer readiness or performance, use a real Electron lane with a representative large scan; verify visible output, cleared skeletons, stable geometry/scrolling, and first-page timing apart from background work.
+- For dead-code audits, inspect `.fallowrc.json` entry points and ignores, then trace scripts through `package.json`, CI, documentation, and imports before classifying them as live or obsolete.
+
+## Large Audits And Overhauls
+
+- For multiple audits, roadmaps, or blueprints, keep a `.devkit/analysis/` ledger mapping each item to `implemented`, `verified`, `deferred`, or `blocked`, with evidence.
+- Give parallel agents disjoint ownership and reconcile their results with the ledger, source documents, and worktree before reporting completion.
+
+## Architecture
+
+- Define cross-process and shared serialized domain shapes in `packages/contracts`; import or derive layer-specific variants from those contracts instead of duplicating IPC, worker, or JSON boundary types.
 
 ## Host Environment
 
@@ -14,6 +26,7 @@
 - Treat its `headed` vs `headless` result as authoritative for this checkout. On Linux with empty `DISPLAY` and `WAYLAND_DISPLAY`, assume headless and run Electron/browser commands through Xvfb.
 - Prefer checked-in wrappers on headless Linux: `pnpm run electron:run:headless -- <command>`, `pnpm run dev:headless`, and `pnpm run test:e2e:electron:headless`.
 - For a fresh Ubuntu VPS, use `bash scripts/setup-linux-dev-host.sh`; keep any setup improvements in the repo, not only in machine-local notes.
+- For isolated packaged-app checks, confirm the intended source and dependencies, use an isolated profile/identity, and gracefully stop the exact test process.
 
 ## Computer Use For Dev App
 
@@ -33,6 +46,9 @@
 - Treat ad-hoc local mac packaging as insufficient evidence for LaunchServices startup behavior.
 - Keep public releases working without macOS or Windows signing keys.
 - Publish differential updater metadata only for signed builds it can safely update.
+- Treat GitHub installers, Store packages, and updater feeds as distinct channels; verify each channel's signing, architecture, languages, metadata, and updates.
+- Keep account and release guidance compatible with an individual, free, non-commercial project; surface business identity, payment, or account-conversion requirements as explicit owner decisions.
+- Keep release-critical runbooks in tracked documentation; use ignored `.devkit` notes as working material.
 
 ## Cross-Arch Changes
 
@@ -43,6 +59,8 @@ For Electron runtime, native binaries/tools, OCR/DjVu paths, workers, or packagi
 3. `scripts/verify-packaged-native-tools.sh <mac|win|linux> <x64|arm64>` when a packaged build exists
 
 Use production paths that avoid `eval` workers and runtime package lookup.
+
+For native-tool writes to user-selected destinations, produce and validate output in managed scratch first, then let Electron/Node publish it atomically; include non-ASCII destination paths in Windows coverage.
 
 ## Electron Puppeteer
 

@@ -55,6 +55,7 @@ Run `pnpm run gate:commit` after staging the intended commit, because it depends
 - When the user explicitly asks to cut a patch, minor, or major release, run the corresponding release command such as `pnpm run release:patch` only after gate-fix changes are committed and the worktree is clean. The release script intentionally refuses dirty worktrees and creates its own version-only release commit.
 - In that explicit release-cut flow, treat the user request as permission to commit and push the in-scope gate-fix commit before running the release command, then let the release command create, push, dispatch, and wait for the version commit.
 - If `release:patch` fails with `Release requires a clean worktree`, inspect `git status --short --branch`, commit the in-scope gate-fix changes after `pnpm run gate:commit`, and rerun the release command rather than retrying against the dirty worktree.
+- If the version commit or tag was pushed before dispatch/waiting failed, confirm release state and run `pnpm run release:resume`; report success only after the full workflow and release/branch state are verified.
 - Native, Electron runtime, OCR/DjVu, worker, packaging, and cross-arch changes must also satisfy the cross-arch verification rules from repo `AGENTS.md`.
 - Packaging can be slow. Prefer continuing with concrete log-backed fixes over asking the user whether to proceed.
 
