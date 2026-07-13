@@ -13,6 +13,8 @@
 ## Verification
 
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
+- Treat headless Electron as real-app verification. Never open, activate, focus, or switch to the headed Electron development app unless the user explicitly requests dev-app interaction in the current task.
+- For web-app verification, prefer the Chrome plugin over Playwright. Use Playwright only when Chrome cannot cover the required scenario, and do not steal foreground window focus during autonomous browser automation.
 - For dev-server evidence, inspect `.devkit/scratch/dev-server-logs/latest-run.json`; `pnpm dev` tees launcher, Nuxt, and Electron output there.
 - For OCR, PDF serialization, or document mutations, verify semantic output and rendered visuals separately.
 - For viewer readiness or performance, use a real Electron lane with a representative large scan; verify visible output, cleared skeletons, stable geometry/scrolling, and first-page timing apart from background work.
@@ -39,6 +41,7 @@
 
 ## Computer Use For Dev App
 
+- Operate the headed Electron development app only when the user explicitly requests it in the current task; otherwise use a headless Electron lane.
 - Use `$evb-viewer-computer-use` before operating the Electron development app with `@Computer` or Computer Use.
 - Run `node .agents/skills/evb-viewer-computer-use/scripts/resolve-target.mjs --session=default` and use its exact app path and CDP endpoint for the active dev session.
 - Use Computer Use `get_app_state` with the exact app path for visual state; use CDP or Playwright for clicks, typing, keyboard input, and stress-test loops when Computer Use action dispatch reports `-10005 noWindowsAvailable` or `cgWindowNotFound`.
