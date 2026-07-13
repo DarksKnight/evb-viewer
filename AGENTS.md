@@ -3,6 +3,13 @@
 - Read `CLAUDE.md` before changing this project.
 - Create or switch branches only when the user asks or the harness requires it.
 
+## Delegation
+
+- Continue autonomously from the user's initial request through completion without pausing to ask for delegation permission.
+- Use the primary agent by default. The parent agent may delegate substantial technical execution to Luna at light reasoning effort when beneficial without asking the user.
+- Use other sub-agents only when the user explicitly requests sub-agents, delegation, or parallel agent work for the current task.
+- When parallel agents are requested, give them disjoint ownership and reconcile their results with the source documents and worktree before reporting completion.
+
 ## Verification
 
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
@@ -14,7 +21,7 @@
 ## Large Audits And Overhauls
 
 - For multiple audits, roadmaps, or blueprints, keep a `.devkit/analysis/` ledger mapping each item to `implemented`, `verified`, `deferred`, or `blocked`, with evidence.
-- Give parallel agents disjoint ownership and reconcile their results with the ledger, source documents, and worktree before reporting completion.
+- When parallel agents are requested for the current task, reconcile their results with the ledger before reporting completion.
 
 ## Architecture
 
@@ -27,6 +34,8 @@
 - Prefer checked-in wrappers on headless Linux: `pnpm run electron:run:headless -- <command>`, `pnpm run dev:headless`, and `pnpm run test:e2e:electron:headless`.
 - For a fresh Ubuntu VPS, use `bash scripts/setup-linux-dev-host.sh`; keep any setup improvements in the repo, not only in machine-local notes.
 - For isolated packaged-app checks, confirm the intended source and dependencies, use an isolated profile/identity, and gracefully stop the exact test process.
+- For packaged-app checks on a developer workstation, use a disposable app copy with a distinct bundle identifier and display name so workspace builds cannot register as the production app in the user's Dock or LaunchServices state.
+- When exact production bundle identity or LaunchServices behavior is the subject of the test, get explicit user approval first, snapshot the relevant Dock/LaunchServices registrations, and restore only state created by the test while preserving the user's pre-existing Dock configuration.
 
 ## Computer Use For Dev App
 
