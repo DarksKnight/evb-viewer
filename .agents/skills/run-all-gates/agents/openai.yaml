@@ -1,4 +1,0 @@
-interface:
-  display_name: "EVB Viewer All Gates"
-  short_description: "Run EVB Viewer gates to green"
-  default_prompt: "Use $run-all-gates to run every EVB Viewer validation and release gate, fix failures, then commit and push."

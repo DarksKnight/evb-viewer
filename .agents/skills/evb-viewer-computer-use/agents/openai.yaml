@@ -1,4 +1,0 @@
-interface:
-  display_name: "EVB Viewer Computer Use"
-  short_description: "Stabilize Computer Use for EVB dev app"
-  default_prompt: "Use $evb-viewer-computer-use to operate the EVB Viewer Electron dev app safely."
