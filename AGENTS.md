@@ -12,6 +12,10 @@
 
 ## Verification
 
+- Use an isolated headless Electron E2E session as the default real-app verification lane on every host, including macOS. Do not attach to, reuse, restart, show, or focus the `default` headed development session for autonomous verification.
+- Merely mentioning Electron, the desktop app, or an Electron feature does not authorize headed dev-app access. That requires an explicit request to interact with the headed development app in the current task (for example, `@Computer` or “check this in the headed dev app”).
+- Do not run `pnpm dev`, `pnpm start`, or `pnpm electron:run ... --session=default` for autonomous verification. Use `pnpm run test:e2e:electron:headless` or a generated isolated E2E session instead.
+- If the required scenario cannot be verified headlessly, report that limitation instead of falling back to the headed development app.
 - Prove fixes in a headless real app/browser first; add unit tests afterward only when they provide meaningful regression value.
 - Treat headless Electron as real-app verification. Never open, activate, focus, or switch to the headed Electron development app unless the user explicitly requests dev-app interaction in the current task.
 - For web-app verification, prefer the Chrome plugin over Playwright. Use Playwright only when Chrome cannot cover the required scenario, and do not steal foreground window focus during autonomous browser automation.
@@ -38,7 +42,7 @@
 
 - Run `pnpm run check:dev-env` before Electron, browser automation, native-tool, OCR, packaging, or diagnostics work when the host/session is unfamiliar.
 - Treat its `headed` vs `headless` result as authoritative for this checkout. On Linux with empty `DISPLAY` and `WAYLAND_DISPLAY`, assume headless and run Electron/browser commands through Xvfb.
-- Prefer checked-in wrappers on headless Linux: `pnpm run electron:run:headless -- <command>`, `pnpm run dev:headless`, and `pnpm run test:e2e:electron:headless`.
+- Prefer checked-in wrappers for autonomous Electron verification: `pnpm run test:e2e:electron:headless`, or `pnpm run electron:run:headless -- <command>` with a non-default isolated session name. On headless Linux these wrappers run Electron through Xvfb.
 - For a fresh Ubuntu VPS, use `bash scripts/setup-linux-dev-host.sh`; keep any setup improvements in the repo, not only in machine-local notes.
 - For isolated packaged-app checks, confirm the intended source and dependencies, use an isolated profile/identity, and gracefully stop the exact test process.
 - For packaged-app checks on a developer workstation, use a disposable app copy with a distinct bundle identifier and display name so workspace builds cannot register as the production app in the user's Dock or LaunchServices state.

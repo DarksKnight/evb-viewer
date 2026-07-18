@@ -26,7 +26,9 @@
 - Use `pnpm run fallow:all` for failing dead-code and duplicate checks; use `pnpm run fallow:health:summary` only when you need the informational maintainability report.
 - For dev-server evidence, inspect `.devkit/scratch/dev-server-logs/latest-run.json`; `pnpm dev` tees launcher, Nuxt, and Electron output there.
 - Run `pnpm run check:dev-env` when working from a new host or before Electron/browser/native-tool tasks; it reports whether the environment is headed or headless and whether VPS dependencies are present.
-- On headless Linux, use `pnpm run electron:run:headless -- <command>`, `pnpm run dev:headless`, or `pnpm run test:e2e:electron:headless` instead of assuming a desktop display.
+- Use isolated headless Electron E2E sessions for autonomous real-app verification on every host. Never attach to, restart, show, activate, focus, or reuse the `default` headed development session unless the user explicitly asks for headed dev-app interaction in the current task.
+- Mentioning Electron or an Electron feature is not permission to use the headed development app. If a scenario cannot be verified headlessly, report the limitation instead of falling back to the headed app.
+- Do not run `pnpm dev`, `pnpm start`, or `pnpm electron:run ... --session=default` for autonomous verification. Use `pnpm run test:e2e:electron:headless` or `pnpm run electron:run:headless -- <command>` with a non-default isolated session; the wrappers use Xvfb on headless Linux.
 
 ## PDF Notes
 
