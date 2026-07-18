@@ -20,6 +20,11 @@
 - For viewer readiness or performance, use a real Electron lane with a representative large scan; verify visible output, cleared skeletons, stable geometry/scrolling, and first-page timing apart from background work.
 - For dead-code audits, inspect `.fallowrc.json` entry points and ignores, then trace scripts through `package.json`, CI, documentation, and imports before classifying them as live or obsolete.
 
+## Vercel Deployment
+
+- Never invoke `vercel`, `vercel deploy`, or `vercel --prod` directly from this checkout. Direct CLI deployment includes the public GitHub no-reply commit identity and Vercel rejects it as a non-member collaborator.
+- Use `pnpm run deploy:web` for previews and `pnpm run deploy:web:prod` for production. These repository-owned commands deploy from a sanitized temporary source tree without `.git` metadata.
+
 ## Large Audits And Overhauls
 
 - For multiple audits, roadmaps, or blueprints, keep a `.devkit/analysis/` ledger mapping each item to `implemented`, `verified`, `deferred`, or `blocked`, with evidence.
