@@ -1,0 +1,28 @@
+Baseline branch: main
+Baseline HEAD: 181e15c0bc8a4ca8877935c7b049a4154bb6e6ef
+Captured before feature work on 2026-07-19
+
+ M app/modules/pdf-viewer/components/PdfThumbnails.vue
+ M app/modules/pdf-viewer/runtime/navigation/createPdfNavigationLayoutAuthority.ts
+ M app/modules/pdf-viewer/runtime/navigation/pdfSinglePageScrollTypes.ts
+ M app/modules/pdf-viewer/runtime/navigation/usePdfSinglePageNavigationController.ts
+ M app/modules/pdf-viewer/runtime/usePdfViewerFeatureController.ts
+ M app/modules/pdf-viewer/thumbnails/usePdfThumbnailRenderRuntime.ts
+ M app/modules/scan-cleanup/components/ScanCleanupPopup.vue
+ M app/utils/document-viewer/thumbnails/documentThumbnailLayout.ts
+ M app/utils/document-viewer/thumbnails/documentThumbnailRenderMetrics.ts
+ M app/utils/document-viewer/thumbnails/useDocumentThumbnailController.ts
+ M nuxt.config.ts
+ M tests/e2e/electron/helpers/fixtures.ts
+ M tests/e2e/electron/viewerSmoke.e2e.test.ts
+ M tests/unit/app/modules/pdf-viewer/runtime/navigation/createPdfNavigationLayoutAuthority.test.ts
+ M tests/unit/app/modules/pdf-viewer/runtime/navigation/usePdfSinglePageNavigationController.test.ts
+ M tests/unit/app/modules/pdf-viewer/thumbnails/pdfThumbnailRenderMetrics.test.ts
+
+Baseline gates:
+- pnpm typecheck: PASS
+- pnpm lint: FAIL (25 pre-existing stylistic errors, exclusively in the two baseline-dirty Electron E2E files)
+
+Collision resolution:
+- ScanCleanupPopup.vue was not modified. public.ts now exports the replacement ScanCleanupDialog.vue.
+- nuxt.config.ts was not modified. The scissors artwork is a local SVG component, so no icon-bundle edit is needed.
